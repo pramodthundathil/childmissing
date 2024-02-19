@@ -1,0 +1,57 @@
+{% extends "policeindex.html" %}
+{% block content %}
+
+<div class="container">
+    <h2 class="title-style-1">Cases <span class="title-under"></span></h2>
+
+    <table class="table table-primary">
+        <tr>
+            <th>Case</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Approval</th>
+            <th>Closing date</th>
+            <th>Fir Status</th>
+            
+
+        </tr>
+        {% for case in cases %}
+        <tr>
+            <td>{{case.Compliant}}</td>
+            <td>{{case.Insident_Date}}</td>
+            <th>
+                {%if case.status == False %}
+                <span class="badge bg-danger">On Service</span>
+                <a href="{%url 'CloseCaseupdate' case.id %}" class="btn btn-primary">Close Case</a>
+                {% else %}
+                <span class="badge bg-primary">Closed</span>
+
+                {% endif %}
+            </th>
+            <td>{% if case.approval_status == False %}
+                <span class="badge bg-primary">Pending For approval</span>
+            <!-- <a href="" class="btn btn-primary">Approve</a> -->
+
+                {% else %}
+                <span class="badge bg-dange">Approved</span>
+
+                {% endif %}
+            </td>
+            <td>{{case.closingdate}}</td>
+            <td>{{case.FIR_Status}}
+
+                <form action="{%url 'firstatusupdate' case.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="status" required>
+                    <button class="submit">submit</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</div>
+
+
+{% endblock %}

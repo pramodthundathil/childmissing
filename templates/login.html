@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Child Missing</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+
+        <!-- Bootsrap -->
+        <link rel="stylesheet" href="{%static 'assets/css/bootstrap.min.css' %}">
+
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="{%static 'assets/css/font-awesome.min.css' %}">
+
+        <!-- Owl carousel -->
+        <link rel="stylesheet" href="{%static 'assets/css/owl.carousel.css' %}">
+
+        <!-- Template main Css -->
+        <link rel="stylesheet" href="{%static 'assets/css/style.css' %}">
+        
+        <!-- Modernizr -->
+
+
+    </head>
+
+    <body>
+
+
+    <header class="main-header">
+        
+    
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-top">
+
+              <div class="container">
+                  <div class="row">
+
+                    <div class="col-sm-6 col-xs-12">
+
+                        <ul class="list-unstyled list-inline header-contact">
+                            <li> <i class="fa fa-phone"></i> <a href="tel:">+91 9876543210 </a> </li>
+                             <li> <i class="fa fa-envelope"></i> <a href="mailto:contact@sadaka.org">contact@childmissing.org</a> </li>
+                       </ul> <!-- /.header-contact  -->
+                      
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12 text-right">
+
+                        <ul class="list-unstyled list-inline header-social">
+
+                            <li> <a href="#"> <i class="fa fa-facebook"></i> </a> </li>
+                            <li> <a href="#"> <i class="fa fa-twitter"></i>  </a> </li>
+                            <li> <a href="#"> <i class="fa fa-google"></i>  </a> </li>
+                            <li> <a href="#"> <i class="fa fa-youtube"></i>  </a> </li>
+                            <li> <a href="#"> <i class="fa fa fa-pinterest-p"></i>  </a> </li>
+                       </ul> <!-- /.header-social  -->
+                      
+                    </div>
+
+
+                  </div>
+              </div>
+
+            </div>
+
+            <div class="navbar-main">
+              
+              <div class="container">
+
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                  </button>
+                  
+                  <a class="navbar-brand" href="{%url 'Index' %}" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size: x-large;">CHILD SAFE GUARD</a>
+                  
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse pull-right">
+
+                  <ul class="nav navbar-nav">
+
+                    <li><a class="" href="{%url 'SignIn' %}">Login</a></li>
+                    <li><a class="" href="{%url 'SignUp' %}">Register</a></li>
+                    
+
+                    </li>
+
+                  </ul>
+
+                </div> <!-- /#navbar -->
+
+              </div> <!-- /.container -->
+              
+            </div> <!-- /.navbar-main -->
+
+
+        </nav> 
+
+    </header> <!-- /. main-header -->
+
+
+
+
+
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <h4 class="modal-title" id="donateModalLabel">SignIn</h4>
+            {% for message in messages %}
+            <h6 style="color:red;text-align:center">{{message}}</h6> 
+             {% endfor %}
+          </div>
+          <div class="modal-body">
+
+                <form class="form-donation" method="post">
+                    {% csrf_token %}
+
+                        <h3 class="title-style-1 text-center">Login To Child Safe Guard System <span class="title-under"></span>  </h3>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12 ">
+                                <input type="text" class="form-control" id="amount" name="uname" placeholder="Username*">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input type="password" class="form-control" name="pswd" placeholder="Password*">
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right"  >Login</button>
+                            </div>
+
+                        </div>
+                </form>
+            
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+ <div class="section-home our-causes animate-onscroll fadeIn" style="margin-top: 60px;">
+
+    <div class="container">
+
+      <h2 class="title-style-1">These Childs Are Missing <span class="title-under"></span></h2>
+
+      <div class="row">
+
+        {% for c in missingchild %}
+
+        <div class="col-md-3 col-sm-6">
+
+          <div class="cause">
+
+            <img src="{{c.Photo_Of_Child.url}}" height="200px" alt="" class="cause-img">
+
+            <div class="progress cause-progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+
+              </div>
+            
+            </div>
+            <h4 class="cause-title"><a href="#">{{c.Child_Name}} </a></h4>
+
+            <h4 class="cause-title">Missing From: {{c.Missing_From}} </h4>
+            <h4 class="cause-title">Missing date: {{c.Missing_Date}}</h4>
+
+            <div class="cause-details">
+               Description:  {{c.Description}} <br> Identification: {{c.Identification_Mark}}
+               <br><br>
+               If Found Please Call: {{c.Phone_number}} or inform nearst Police Station
+            </div>
+
+            <div class="btn-holder text-center">
+
+              {% comment %} <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#donateModal">  As Found</a> {% endcomment %}
+
+            </div>
+
+
+
+          </div> <!-- /.cause -->
+
+        </div>
+
+        {% endfor %}
+
+       
+
+      </div>
+
+    </div>
+
+  </div> <!-- /.our-causes -->
+
+
+    <!-- footer  -->
+
+
+<footer>
+
+     <div class="footer-main" style="position: fixed;width: 100%; bottom: 0;">     
+        <div class="footer-bottom">
+
+            <div class="container text-center text-white">
+                beta @ copyrights 2024 - by <a href="" target="_blank">beta</a>
+            </div>
+        </div>
+         </div>
+
+    </footer> <!-- main-footer -->
+
+
+ <!--  Scripts
+    ================================================== -->
+
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/jquery-1.11.1.min.js"><\/script>')</script>
+      <script src="{%static 'assets/js/modernizr-2.6.2.min.js' %}"></script>
+
+    <!-- Bootsrap javascript file -->
+    <script src="{%static 'assets/js/bootstrap.min.js' %}"></script>
+    
+    <!-- owl carouseljavascript file -->
+    <script src="{%static 'assets/js/owl.carousel.min.js' %}"></script>
+
+    <!-- Template main javascript -->
+    <script src="{%static 'assets/js/main.js' %}"></script>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    </body>
+</html>

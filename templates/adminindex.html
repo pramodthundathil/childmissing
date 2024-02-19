@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <title>Child Missing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap -->
+    <link rel="stylesheet" href="{%static 'assets/css/bootstrap.min.css' %}">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="{%static 'assets/css/font-awesome.min.css' %}">
+
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="{%static 'assets/css/owl.carousel.css' %}">
+
+    <!-- Template main Css -->
+    <link rel="stylesheet" href="{%static 'assets/css/style.css' %}">
+
+    <!-- Modernizr -->
+
+    <style>
+        .form-donation input{
+            width: 100%;
+            padding: 6px;
+            border: .5px solid gray;
+        }
+    
+        .al{
+          position: fixed;
+          right: 0;
+          top:100px;
+          z-index: 2;
+        }
+      </style>
+
+
+</head>
+
+<body>
+
+
+    <header class="main-header">
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-top">
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-sm-6 col-xs-12">
+
+                            <ul class="list-unstyled list-inline header-contact">
+                                <li> <i class="fa fa-phone"></i> <a href="tel:">+91 9876543210 </a> </li>
+                                <li> <i class="fa fa-envelope"></i> <a
+                                        href="mailto:contact@sadaka.org">contact@childmissing.org</a> </li>
+                            </ul> <!-- /.header-contact  -->
+
+                        </div>
+
+                        <div class="col-sm-6 col-xs-12 text-right">
+
+                            <ul class="list-unstyled list-inline header-social">
+
+                                <li> <a href="#"> <i class="fa fa-facebook"></i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa-twitter"></i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa-google"></i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa-youtube"></i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa fa-pinterest-p"></i> </a> </li>
+                            </ul> <!-- /.header-social  -->
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="navbar-main">
+
+                <div class="container">
+
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+
+                        </button>
+
+                        <a class="navbar-brand" href="{%url 'Index' %}"
+                            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size: x-large;">CHILD
+                            SAFE GUARD</a>
+
+                    </div>
+
+                    <div id="navbar" class="navbar-collapse collapse pull-right">
+
+                        <ul class="nav navbar-nav">
+
+                            <li><a class="" href="">Admin</a></li>
+                            <li><a class="" href="{%url 'SignOut' %}">SignOut</a></li>
+
+
+                            </li>
+
+                        </ul>
+
+                    </div> <!-- /#navbar -->
+
+                </div> <!-- /.container -->
+
+            </div> <!-- /.navbar-main -->
+
+
+        </nav>
+
+    </header> <!-- /. main-header -->
+
+    {% for message in messages %}
+  <div class="alert alert-info alert-dismissible al" role="alert">
+    <b>Attention !</b> <a href="#" class="alert-link"></a>  {{message}} {{form.errors}}
+    <button type="button" class="btn" data-bs-dismiss="alert" aria-label="Close">X</button>
+  
+  </div>
+  {% endfor %}
+
+    <div class="container mt-5 mb-5" style="margin-top: 100px;">
+        <h6 class="text-danger">{{form.errors}}</h6>
+
+    <a href="#" class="btn btn-lg btn-primary hidden-xs bounceInUp animated slow" data-toggle="modal"
+    data-target="#donateModal">Regiser A Police Station</a>
+
+    <a href="/admin" class="btn btn-lg btn-primary hidden-xs bounceInUp animated slow" >Go to Admin Edits</a>
+</div>
+
+<div class="container mt-5 mb-5" style="margin-top: 40px;">
+    <h4>Police Details</h4>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Police Station</th>
+            <th>District</th>
+            <th>Designation</th>
+            <th>Delete</th>
+        </tr>
+{% for p in police %}
+        <tr>
+            <td>{{p.user.first_name}}</td>
+            <td>{{p.Police_Station}}</td>
+            <td>{{p.District}}</td>
+            <td>{{p.Designation}}</td>
+            <td><a href="" class="btn btn-danger btn-sm">delete</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<!-- modal -->
+
+    <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
+
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <h4 class="modal-title" id="donateModalLabel">Register Police Station</h4>
+          </div>
+          <div class="modal-body">
+
+                <form class="form-donation" method="post">
+                    {% csrf_token %}
+
+
+                        <h3 class="title-style-1 text-center">Register Police <span class="title-under"></span>  </h3>
+
+                        <div class="row">
+                        {% for field in form  %}
+
+                            <div class="form-group col-md-6 ">
+                                {{field.label}}: <br>
+                                {{field}}
+                            </div>
+                            {% endfor %}
+                        
+                            <div class="form-group col-md-6 ">
+                                Police Station:
+                                <input type="text" name="stn" required>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                Address:
+                                <input type="text" name="add" required>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                District :
+                                <input type="text" name="dis" required>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                Designation:
+                                <input type="text" name="desi" required>
+                            </div>
+
+
+
+                        </div>
+
+
+                        
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right"  >Register</button>
+                            </div>
+
+                        </div>
+                </form>
+            
+          </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <!-- footer  -->
+
+
+    <footer>
+
+        <div class="footer-main" style="position: fixed;width: 100%; bottom: 0;">
+            <div class="footer-bottom">
+
+                <div class="container text-center text-white">
+                    beta @ copyrights 2024 - by <a href="" target="_blank">beta</a>
+                </div>
+            </div>
+        </div>
+
+    </footer> <!-- main-footer -->
+
+
+    <!--  Scripts
+    ================================================== -->
+
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/jquery-1.11.1.min.js"><\/script>')</script>
+    <script src="{%static 'assets/js/modernizr-2.6.2.min.js' %}"></script>
+
+    <!-- Bootsrap javascript file -->
+    <script src="{%static 'assets/js/bootstrap.min.js' %}"></script>
+
+    <!-- owl carouseljavascript file -->
+    <script src="{%static 'assets/js/owl.carousel.min.js' %}"></script>
+
+    <!-- Template main javascript -->
+    <script src="{%static 'assets/js/main.js' %}"></script>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+            (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+                    function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+                e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+                e.src = '//www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+            }(window, document, 'script', 'ga'));
+        ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
+    </script>
+
+</body>
+
+</html>

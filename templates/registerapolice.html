@@ -1,0 +1,93 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="container" style="margin-top: 40px; text-align: center;">
+    <a href="#" class="btn btn-lg btn-primary hidden-xs bounceInUp animated slow" data-toggle="modal"
+              data-target="#donateModal">Register A Case</a>
+  </div>
+
+
+<div class="container">
+    <h2 class="title-style-1">My Cases <span class="title-under"></span></h2>
+
+    <table class="table table-primary">
+        <tr>
+            <th>Case</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Approval</th>
+            <th>Closing date</th>
+            <th>Fir Status</th>
+
+        </tr>
+        {% for case in cases %}
+        <tr>
+            <td>{{case.Compliant}}</td>
+            <td>{{case.Insident_Date}}</td>
+            <th>
+                {%if case.status == False %}
+                <span class="badge bg-danger">On Service</span>
+                {% else %}
+                <span class="badge bg-primary">Closed</span>
+
+                {% endif %}
+            </th>
+            <td>{% if case.approval_status == False %}
+                <span class="badge bg-primary">Pending For approval</span>
+
+                {% else %}
+                <span class="badge bg-dange">Approved</span>
+
+                {% endif %}
+            </td>
+            <td>{{case.closingdate}}</td>
+            <td>{{case.FIR_Status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</div>
+   <!-- Donate Modal -->
+  <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="donateModalLabel">Register A Police Case</h4>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-donation" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h5 class="title-style-1 text-center">Enter accurate data. <span class="title-under"></span> </h5>
+
+            <div class="row">
+              {% for field in form %}
+              <div class="form-group col-md-6 ">
+                {{field.label}}:
+                {{field}}
+              </div>
+              {% endfor %}
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary pull-right" name="donateNow">Reoprt</button>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /.modal --
+{% endblock %}

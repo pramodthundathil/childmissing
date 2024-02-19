@@ -1,0 +1,114 @@
+{% extends "policeindex.html" %}
+{% block content %}
+
+
+<div class="container" style="margin-top: 40px; text-align: center;">
+    <a href="#" class="btn btn-lg btn-primary hidden-xs bounceInUp animated slow" data-toggle="modal"
+              data-target="#donateModal">Report Found Case</a>
+  </div>
+
+
+  <div class="container">
+
+    <h2 class="title-style-1">My Updates for FoundChild <span class="title-under"></span></h2>
+
+    <div class="row">
+
+      {% for c in Foundchild %}
+
+      <div class="col-md-3 col-sm-6">
+
+        <div class="cause bg-primary">
+
+          <img src="{{c.Photo_Of_Child.url}}" height="200px" alt="" class="cause-img">
+
+          <div class="progress cause-progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+
+            </div>
+          
+          </div>
+          <h4 class="cause-title"><a href="#">{{c.Child_Name}} </a></h4>
+
+          <h4 class="cause-title">Found From: {{c.Find_From}} </h4>
+          <h4 class="cause-title">Found date: {{c.Found_Date}}</h4>
+
+          <div class="cause-details">
+             Description:  {{c.Description}} <br> Identification: {{c.Identification_Mark}}
+             <br><br>
+             If any information Please Call: {{c.Phone_number}} or inform nearst Police Station
+          </div>
+
+          <div class="btn-holder text-center">
+            {% if c.approval_status == False %}
+            <span href="" class="badge bg-warning" >Not approved</span>
+              {% else %}
+            <span href="" class="badge bg-info" >approved</a></span>
+
+              {% endif %}
+            
+            <a href="{%url 'DeleteFoundCasePolice' c.id %}" class="btn btn-danger btn-sm" >Delete</a>
+              <a href="{%url 'ApproveFounndCase' c.id %}" class="btn btn-primary" > Approve Case</a>
+
+
+          </div>
+
+
+
+        </div> <!-- /.cause -->
+
+      </div>
+
+      {% endfor %}
+
+     
+
+    </div>
+
+  </div>
+
+
+
+    <!-- Donate Modal -->
+  <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="donateModalLabel">Report Found a Child</h4>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-donation" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h5 class="title-style-1 text-center">Enter accurate data. <span class="title-under"></span> </h5>
+
+            <div class="row">
+              {% for field in form %}
+              <div class="form-group col-md-6 ">
+                {{field.label}}:
+                {{field}}
+              </div>
+              {% endfor %}
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary pull-right" name="donateNow">Reoprt</button>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
