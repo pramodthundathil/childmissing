@@ -39,13 +39,16 @@
           </div>
 
           <div class="btn-holder text-center">
-{% if c.approval_status == False %}
+          {% if c.approval_status == False %}
             <span href="" class="badge bg-warning" >Not approved</span>
               {% else %}
             <span href="" class="badge bg-success" >approved</a>
 
               {% endif %}
-            <a href="{%url 'DeleteFoundCase' c.id %}" class="btn btn-danger btn-sm" >Delete</a>
+            <a href="{%url 'DeleteMissingChildCase' c.id %}" class="btn btn-danger btn-sm" >Delete</a>
+<br><br>
+            <!-- <a href="{%url 'FaceRecoganition' c.id %}" class="btn btn-primary">Match Child From DATABAASE </a> -->
+          
 
           </div>
 

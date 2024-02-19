@@ -12,5 +12,7 @@ urlpatterns = [
     path("firstatusupdate/<int:pk>",views.firstatusupdate,name="firstatusupdate"),
     path("CloseCaseupdate/<int:pk>",views.CloseCaseupdate,name="CloseCaseupdate"),
     path("DeleteFoundCasePolice/<int:pk>",views.DeleteFoundCasePolice,name="DeleteFoundCasePolice"),
+    path("DeleteMissingChildCase/<int:pk>",views.DeleteMissingChildCase,name="DeleteMissingChildCase"),
+    path("FaceRecoganition/<int:pk>",views.FaceRecoganition,name="FaceRecoganition"),
 
 ]
