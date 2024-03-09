@@ -14,3 +14,9 @@ class PoliceData(models.Model):
 
     def __str__(self):
         return self.Police_Station + " " + "PoliceStation"
+    
+class Suggesions(models.Model):
+    sugge = models.CharField(max_length = 255)
+    date = models.DateField(auto_now_add = True)
+    user = models.ForeignKey(User, on_delete = models.CASCADE,null = True)
+

@@ -11,6 +11,7 @@ urlpatterns = [
     path("PoliceIndex",views.PoliceIndex,name="PoliceIndex"),
     path("ApproveCase/<int:pk>",views.ApproveCase,name="ApproveCase"),
     path("DeleteCase/<int:pk>",views.DeleteCase,name="DeleteCase"),
+    path("SocialIndex",views.SocialIndex,name="SocialIndex"),
    
     
 ]  

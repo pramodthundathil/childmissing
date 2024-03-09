@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
-from .forms import UserAddForm
+from .forms import UserAddForm, SuggesionsaddForm
 from django.contrib import messages
 from .decorators import admin_only, unautenticated_user
 from Childs.models import MissingChilds, FoundChilds
 from Childs.forms import MissingChildForm, FoundChildForm
 from django.contrib.auth.decorators import login_required
-from .models import PoliceData
+from .models import PoliceData, Suggesions
 
 # Create your views here.
 @login_required(login_url="SignIn")
@@ -16,6 +16,7 @@ def Index(request):
     form = MissingChildForm()
     missingchild = MissingChilds.objects.filter(approval_status = True)
     Foundchild = FoundChilds.objects.filter(approval_status = True)
+    sugg = Suggesions.objects.all()
 
     if request.method == "POST":
         form = MissingChildForm(request.POST,request.FILES)
@@ -34,7 +35,8 @@ def Index(request):
     context = {
         "form":form,
         "missingchild":missingchild,
-        "Foundchild":Foundchild
+        "Foundchild":Foundchild,
+        "sugg":sugg
     }
     return render(request,'index.html',context)
 
@@ -101,6 +103,25 @@ def PoliceIndex(request):
     return render(request,"policeindex.html",context)
 
 
+def SocialIndex(request):
+    missingchild = MissingChilds.objects.filter(approval_status = True)
+    Foundchild = FoundChilds.objects.filter(approval_status = True)
+    form = SuggesionsaddForm()
+    if request.method == "POST":
+        form = SuggesionsaddForm(request.POST,request.FILES)
+        if form.is_valid():
+            child = form.save()
+            child.user = request.user
+            child.save()
+            return redirect("SocialIndex")
+    context  = {
+        "form":form,
+        "missingchild":missingchild,
+        "Foundchild":Foundchild
+    }
+    return render(request,"socialindex.html",context)
+
+
 
 @login_required(login_url="SignIn")
 def ApproveCase(request,pk):
@@ -122,6 +143,7 @@ def DeleteCase(request,pk):
 @unautenticated_user
 def SignIn(request):
     missingchild = MissingChilds.objects.filter(approval_status = True)
+    sugg = Suggesions.objects.all()
 
     if request.method == "POST":
         username = request.POST['uname']
@@ -138,7 +160,7 @@ def SignIn(request):
         else:
             messages.info(request,'Username or Password Incorrect')
             return redirect('SignIn')
-    return render(request,"login.html",{"missingchild":missingchild})
+    return render(request,"login.html",{"missingchild":missingchild,"sugg":sugg})
 
 
 @unautenticated_user

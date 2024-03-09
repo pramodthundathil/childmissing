@@ -217,6 +217,62 @@
   </div> <!-- /.our-causes -->
 
 
+  <div class="section-home our-causes animate-onscroll fadeIn" style="margin-top: 60px;">
+
+    <div class="container">
+
+      <h2 class="title-style-1">Suggessions <span class="title-under"></span></h2>
+
+      <div class="row">
+
+        {% for c in sugg %}
+
+        <div class="col-md-3 col-sm-6">
+
+          <div class="cause">
+
+            <!-- <img src="{{c.Photo_Of_Child.url}}" height="200px" alt="" class="cause-img"> -->
+
+            <div class="progress cause-progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+
+              </div>
+            
+            </div>
+            <h4 class="cause-title"><a href="#">{{c.user}} </a></h4>
+
+            <!-- <h4 class="cause-title">Missing From: {{c.Missing_From}} </h4>
+            <h4 class="cause-title">Missing date: {{c.Missing_Date}}</h4> -->
+
+            <div class="cause-details">
+               Description:  {{c.sugg}} <br> Date: {{c.date}}
+               <br><br>
+               <!-- If Found Please Call: {{c.Phone_number}} or inform nearst Police Station -->
+            </div>
+
+            <div class="btn-holder text-center">
+
+              {% comment %} <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#donateModal">  As Found</a> {% endcomment %}
+
+            </div>
+
+
+
+          </div> <!-- /.cause -->
+
+        </div>
+
+        {% endfor %}
+
+       
+
+      </div>
+
+    </div>
+
+  </div> <!-- /.our-causes -->
+
+
     <!-- footer  -->
 
 

@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import TextInput,PasswordInput
 from django.contrib.auth.models import User
 from django.forms import ModelForm
+from .models import Suggesions
 
 
 class UserAddForm(UserCreationForm):
@@ -18,3 +19,11 @@ class UserAddForm(UserCreationForm):
             
 
         }
+
+class SuggesionsaddForm(ModelForm):
+    class Meta:
+        model = Suggesions
+        fields = ["sugge"]
+        widgets = {
+            'sugge': TextInput(attrs={'class': 'form-control p','placeholder':'Suggesion'}),
+         }

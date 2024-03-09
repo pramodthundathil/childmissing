@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 
 import cv2
-import face_recognition
+# import face_recognition
 
 # Create your views here.
 
@@ -153,31 +153,32 @@ def CloseCaseupdate(request,pk):
 
 def find_face_encodings(image_path):
     
-    image = cv2.imread(image_path)
-    face_enc = face_recognition.face_encodings(image)
-    return face_enc[0]
+    # image = cv2.imread(image_path)
+    # face_enc = face_recognition.face_encodings(image)
+    # return face_enc[0]
+    pass
 
 
 def FaceRecoganition(request,pk):
-    mchild = MissingChilds.objects.get(id = pk)
-    Fchild = FoundChilds.objects.all()
-    Mimage = mchild.Photo_Of_Child.url
-    Mimage = Mimage[1:]
-    print(Mimage,"-------------------------------------------")
-    image_1 = find_face_encodings(Mimage)
-    for i in Fchild:
-        fimage = i.Photo_Of_Child.url
-        fimage = fimage[1:]
-        print(fimage,"-----------------------------------------------")
-        image_2 = find_face_encodings(fimage)
-        is_same = face_recognition.compare_faces([image_1], image_2)
-        print(f"Is Same: {is_same}")
-        if is_same:
-            distance = face_recognition.face_distance([image_1], image_2)
-            distance = round(distance[0] * 100)
-            accuracy = 100 - round(distance)
-            print("The images are same")
-            print(f"Accuracy Level: {accuracy}%")
-            break
+    # mchild = MissingChilds.objects.get(id = pk)
+    # Fchild = FoundChilds.objects.all()
+    # Mimage = mchild.Photo_Of_Child.url
+    # Mimage = Mimage[1:]
+    # print(Mimage,"-------------------------------------------")
+    # image_1 = find_face_encodings(Mimage)
+    # for i in Fchild:
+    #     fimage = i.Photo_Of_Child.url
+    #     fimage = fimage[1:]
+    #     print(fimage,"-----------------------------------------------")
+    #     image_2 = find_face_encodings(fimage)
+    #     is_same = face_recognition.compare_faces([image_1], image_2)
+    #     print(f"Is Same: {is_same}")
+    #     if is_same:
+    #         distance = face_recognition.face_distance([image_1], image_2)
+    #         distance = round(distance[0] * 100)
+    #         accuracy = 100 - round(distance)
+    #         print("The images are same")
+    #         print(f"Accuracy Level: {accuracy}%")
+    #         break
     return render(request,"Facerecon.html")
     

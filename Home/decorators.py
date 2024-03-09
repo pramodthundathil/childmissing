@@ -45,6 +45,9 @@ def admin_only(view_func):
         
         if group == 'police':
             return redirect('PoliceIndex')
+        
+        if group == 'socialworker':
+            return redirect('SocialIndex')
               
     return wrapper_function
 
