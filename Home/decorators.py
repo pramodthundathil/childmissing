@@ -48,6 +48,9 @@ def admin_only(view_func):
         
         if group == 'socialworker':
             return redirect('SocialIndex')
+        
+        if group == 'socialworker':
+            return redirect('SocialIndex')
               
     return wrapper_function
 

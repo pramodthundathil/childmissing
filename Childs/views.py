@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 
 import cv2
-# import face_recognition
+import face_recognition
 
 # Create your views here.
 
@@ -153,17 +153,17 @@ def CloseCaseupdate(request,pk):
 
 def find_face_encodings(image_path):
     
-    # image = cv2.imread(image_path)
-    # face_enc = face_recognition.face_encodings(image)
-    # return face_enc[0]
-    pass
+    image = cv2.imread(image_path)
+    face_enc = face_recognition.face_encodings(image)
+    return face_enc[0]
+    
 
 
 def FaceRecoganition(request,pk):
-    # mchild = MissingChilds.objects.get(id = pk)
-    # Fchild = FoundChilds.objects.all()
-    # Mimage = mchild.Photo_Of_Child.url
-    # Mimage = Mimage[1:]
+    mchild = MissingChilds.objects.get(id = pk)
+    Fchild = FoundChilds.objects.all()
+    Mimage = mchild.Photo_Of_Child.url
+    Mimage = Mimage[1:]
     # print(Mimage,"-------------------------------------------")
     # image_1 = find_face_encodings(Mimage)
     # for i in Fchild:
@@ -180,5 +180,64 @@ def FaceRecoganition(request,pk):
     #         print("The images are same")
     #         print(f"Accuracy Level: {accuracy}%")
     #         break
-    return render(request,"Facerecon.html")
+
+    import face_recognition
+    import cv2
+    import os
+
+    # Load known image (face)
+    known_image = face_recognition.load_image_file(Mimage)
+    known_encoding = face_recognition.face_encodings(known_image)[0]
+
+    # Directory containing unknown images
+    unknown_images_dir = "media/Found_Childs/"
+
+    # Loop through all unknown images
+    for filename in os.listdir(unknown_images_dir):
+        if filename.endswith(".jpg") or filename.endswith(".png"):  # Assuming images are jpg or png
+            # Load unknown image
+            unknown_image_path = os.path.join(unknown_images_dir, filename)
+            unknown_image = face_recognition.load_image_file(unknown_image_path)
+
+            # Find face locations and encodings in the unknown image
+            face_locations = face_recognition.face_locations(unknown_image)
+            face_encodings = face_recognition.face_encodings(unknown_image, face_locations)
+
+            # Initialize an array for the names of recognized faces in the current unknown image
+            face_names = []
+
+            # Compare faces in the unknown image with the known face
+            for face_encoding in face_encodings:
+                # Compare the face with the known face
+                match = face_recognition.compare_faces([known_encoding], face_encoding)
+                name = "Unknown"
+                context  = {
+                        "Found":"Data not Found"
+                    }
+
+                # If a match is found, label the face with the known person's name
+                if match[0]:
+                    name = "Known Person"
+                    print(filename,"-----------------------------------------------------------------------------------------------")
+                    data = FoundChilds.objects.get(Photo_Of_Child = "Found_Childs/{}".format(filename))
+                    context  = {
+                        "Found":"Data Found",
+                        "data":data
+                    }
+                    return render(request,"Facerecon.html",context)
+
+                # Add the recognized name to the list
+                face_names.append(name)
+
+            # Display the results
+            for (top, right, bottom, left), name in zip(face_locations, face_names):
+                cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 0, 255), 2)
+                cv2.putText(unknown_image, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+
+            # Display the final image with recognized faces
+            cv2.imshow('Recognized Faces', unknown_image)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+
+    return render(request,"Facerecon.html",context)
     
